@@ -46,7 +46,8 @@ ClubBook is a web application that facilitates club management, event organizati
 
 4. Create Database locally:
 
-    ```node model/create_db.js
+    ```bash
+    node model/create_db.js
     ```
 
 5. Run the application:
