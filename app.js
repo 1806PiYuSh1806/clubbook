@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const session = require("express-session");
 
-const { getUserById, loginUser, signupUser } = require("./query/user");
+const { getUserById, loginUser, signupUser, getClubDetails } = require("./query/user");
 
 const app = express();
 app.engine("ejs", ejsMate);
@@ -31,6 +31,14 @@ function requireAuthSGC(req, res, next) {
     res.redirect("/sgc");
   }
 }
+
+function requireAuthCC(req, res, next) {
+    if (req.session.userId) {
+      next();
+    } else {
+      res.redirect("/coordinators");
+    }
+  }
 
 app.get("/", (req, res) => {
   res.render("home");
@@ -102,6 +110,31 @@ app.get("/sgc/dashboard", requireAuthSGC, (req, res) => {
     res.redirect("/sgc");
   }
 });
+
+app.get("/coordinators", (req, res) => {
+    res.render("coordinators/login");
+})
+
+app.post("/coordinators", async (req, res) => {
+    const {c_name, c_email, c_password} = req.body;
+    const club = await getClubDetails({c_name, c_email, c_password});
+    if(!club){
+        res.redirect("/coordinators");
+    }
+    else{
+        req.session.CCId = 1;
+        res.redirect("/coordinators/dashboard");
+    }
+})
+
+app.get("/coordinators/dashboard", (req, res) => {
+    if(req.session.CCId == 1){
+        res.render("coordinators/dashboard");
+    }
+    else{
+        res.redirect("/coordinators");
+    }    
+})
 
 app.listen(3000, () => {
   console.log("Server is running on: http://localhost:3000");

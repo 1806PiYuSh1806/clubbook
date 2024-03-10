@@ -58,8 +58,27 @@ async function signupUser(userData) {
   });
 }
 
+async function getClubDetails(clubData) {
+    return new Promise((resolve, reject) => {
+        const {c_name, c_email, c_password} = clubData;
+        const query = `SELECT * FROM clubs WHERE c_name = ? AND c_email = ? AND c_password = ?`;
+        pool.query(query, [c_name, c_email, c_password], (err, res) => {
+            if(err) {
+                console.error("Error  getting club details: " + err.stack);
+                return reject(err);
+            }
+            if(res.length === 0){
+                console.error("Wrong EMail ID or Password or No such Club exists.");
+                return resolve(null);
+            }
+            resolve(res[0]);
+        });
+    });
+}
+
 module.exports = {
     getUserById,
     loginUser,
     signupUser,
+    getClubDetails,
 };
