@@ -23,6 +23,15 @@ function requireAuthUser(req, res, next) {
     res.redirect("/user/login");
   }
 }
+
+function requireAuthSGC(req, res, next) {
+  if (req.session.userId) {
+    next();
+  } else {
+    res.redirect("/sgc");
+  }
+}
+
 app.get("/", (req, res) => {
   res.render("home");
 });
@@ -66,11 +75,34 @@ app.get("/user/:userId/home", requireAuthUser, (req, res) => {
   const userId = req.params.userId;
   if (userId == req.session.userId) {
     res.render("user/home");
-  }
-  else{
+  } else {
     res.send("Hi");
   }
 });
+
+app.get("/sgc", (req, res) => {
+  res.render("sgc/login");
+});
+
+app.post("/sgc", (req, res) => {
+  const { u_email, u_password } = req.body;
+  if (u_email === "sgc@iiitg.ac.in" && u_password === "iitg@123") {
+    req.session.SGCId = 1;
+    res.redirect("/sgc/dashboard");
+  } else {
+    res.redirect("/sgc");
+  }
+});
+
+app.get("/sgc/dashboard", requireAuthSGC, (req, res) => {
+  if (req.session.SGCId == 1) {
+    res.render("sgc/dashboard");
+  }
+  else{
+    res.redirect("/sgc");
+  }
+});
+
 app.listen(3000, () => {
   console.log("Server is running on: http://localhost:3000");
 });
