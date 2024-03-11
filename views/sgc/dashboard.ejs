@@ -3,9 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Club Management</title>
 </head>
 <body>
-    <h1>Welcome SGC</h1>
+    <h2>Club List</h2>
+
+    <ul>
+        <% clubs.forEach((club) => { %>
+            <li>
+                <span><%= club.c_name %></span>
+                
+                <!-- Delete Form -->
+                <form action="/sgc/dashboard/delete" method="post" style="display: inline;">
+                    <input type="hidden" name="c_id" value="<%= club.c_id %>">
+                    <button type="submit">DELETE</button>
+                </form>
+            </li>
+        <% }); %>
+    </ul>
+
+    <button onclick="location.href='/sgc/new_club'">Add New Club</button>
 </body>
 </html>
