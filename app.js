@@ -15,6 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(session({ secret: "secret", resave: false, saveUninitialized: true }));
+app.use('/public', express.static('public', { 'extensions': ['html', 'js'] }));
 
 function requireAuthUser(req, res, next) {
   if (req.session.userId) {
@@ -25,7 +26,7 @@ function requireAuthUser(req, res, next) {
 }
 
 function requireAuthSGC(req, res, next) {
-  if (req.session.userId) {
+  if (req.session.SGCId) {
     next();
   } else {
     res.redirect("/sgc");
@@ -33,7 +34,7 @@ function requireAuthSGC(req, res, next) {
 }
 
 function requireAuthCC(req, res, next) {
-    if (req.session.userId) {
+    if (req.session.CCId) {
       next();
     } else {
       res.redirect("/coordinators");
@@ -45,7 +46,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/user/login", (req, res) => {
-  res.render("user/login");
+  res.render("home");
 });
 
 app.post("/user/login", async (req, res) => {
@@ -53,7 +54,7 @@ app.post("/user/login", async (req, res) => {
   const user = await loginUser(u_email, u_password);
 
   if (!user) {
-    res.render("user/login");
+    res.render("home");
     return;
   } else {
     req.session.userId = user.u_id;
@@ -62,7 +63,7 @@ app.post("/user/login", async (req, res) => {
 });
 
 app.get("/user/signup", (req, res) => {
-  res.render("user/signup");
+  res.render("home");
 });
 
 app.post("/user/signup", async (req, res) => {
@@ -70,7 +71,7 @@ app.post("/user/signup", async (req, res) => {
 
   const existUser = await loginUser(u_email, u_password);
   if (existUser) {
-    return res.redirect("/user/login");
+    return res.redirect("/");
   } else {
     const newUser = await signupUser({ u_name, u_password, u_email });
     req.session.userId = newUser.u_id;
@@ -94,7 +95,7 @@ app.get("/sgc", (req, res) => {
 
 app.post("/sgc", (req, res) => {
   const { u_email, u_password } = req.body;
-  if (u_email === "sgc@iiitg.ac.in" && u_password === "iitg@123") {
+  if (u_email == "sgc@iiitg.ac.in" && u_password == "iitg@123") {
     req.session.SGCId = 1;
     res.redirect("/sgc/dashboard");
   } else {
@@ -112,14 +113,14 @@ app.get("/sgc/dashboard", requireAuthSGC, (req, res) => {
 });
 
 app.get("/coordinators", (req, res) => {
-    res.render("coordinators/login");
+    res.redirect("/sgc");
 })
 
 app.post("/coordinators", async (req, res) => {
     const {c_name, c_email, c_password} = req.body;
     const club = await getClubDetails({c_name, c_email, c_password});
     if(!club){
-        res.redirect("/coordinators");
+        res.redirect("/sgc");
     }
     else{
         req.session.CCId = 1;
@@ -127,12 +128,12 @@ app.post("/coordinators", async (req, res) => {
     }
 })
 
-app.get("/coordinators/dashboard", (req, res) => {
+app.get("/coordinators/dashboard", requireAuthCC,(req, res) => {
     if(req.session.CCId == 1){
         res.render("coordinators/dashboard");
     }
     else{
-        res.redirect("/coordinators");
+        res.redirect("/sgc");
     }    
 })
 

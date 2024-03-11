@@ -1,15 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    <h1>Hello</h1>
-    <a href="/user/login">Login</a>
-    <a href="/user/signup">Signup</a>
-    <a href="/sgc">SGC</a>
-    <a href="/coordinators">Coordinators</a>
-</body>
+    <link rel="stylesheet" href="/user/styles/userlogin.css" />
+  </head>
+  <body>
+    <div class="form-structor">
+      <div class="signup">
+        <h2 class="form-title" id="signup"><span>or</span>Sign up</h2>
+        <form action="/user/signup" method="post">
+          <div class="form-holder">
+            <input
+              class="input"
+              type="text"
+              id="u_name"
+              name="u_name"
+              required
+              placeholder="Name"
+            />
+            <input
+              class="input"
+              type="email"
+              id="u_email"
+              name="u_email"
+              required
+              placeholder="Email Address"
+            />
+            <input
+              class="input"
+              type="password"
+              id="u_password"
+              name="u_password"
+              required
+              placeholder="Password"
+            />
+          </div>
+          <button class="submit-btn">Sign up</button>
+        </form>
+        <a class="sgc__coordinator" href="/sgc">
+            Are you an SGC / COORDINATOR
+        </a>
+      </div>
+      <div class="login slide-up">
+        <div class="center">
+          <h2 class="form-title" id="login"><span>or</span>Log in</h2>
+          <form action="/user/login" method="post">
+            <div class="form-holder">
+              <input
+                class="input"
+                type="email"
+                id="u_email"
+                name="u_email"
+                required
+                placeholder="Email Address"
+              />
+              <input
+                class="input"
+                type="password"
+                id="u_password"
+                name="u_password"
+                required
+                placeholder="Password"
+              />
+            </div>
+            <button class="submit-btn">Log in</button>
+          </form>
+          <a class="sgc__coordinator" href="/sgc">
+            Are you an SGC / COORDINATOR
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script src="/user/javascript/userlogin.js"></script>
+  </body>
 </html>
