@@ -17,6 +17,10 @@ const {
   addNewClub,
 } = require("./query/sgc");
 
+const {
+  getAllEvents,
+} = require("./query/coordinator");
+
 const app = express();
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
@@ -154,14 +158,16 @@ app.post("/coordinators", async (req, res) => {
   if (!club) {
     res.redirect("/sgc");
   } else {
-    req.session.CCId = 1;
-    res.redirect("/coordinators/dashboard");
+    req.session.CCId = club.c_id;
+    res.redirect(`/coordinators/${club.c_id}/dashboard`);
   }
 });
 
-app.get("/coordinators/dashboard", requireAuthCC, (req, res) => {
-  if (req.session.CCId == 1) {
-    res.render("coordinators/dashboard");
+app.get("/coordinators/:clubId/dashboard", requireAuthCC, async (req, res) => {
+  const c_id = req.params.clubId
+  const events = await getAllEvents(c_id);
+  if (req.session.CCId == c_id) {
+    res.render("coordinators/dashboard", {events});
   } else {
     res.redirect("/sgc");
   }
