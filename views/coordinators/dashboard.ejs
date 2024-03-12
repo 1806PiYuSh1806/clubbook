@@ -6,7 +6,7 @@
     <title>Coordinators</title>
 </head>
 <body>
-
+    <h1><%= events[0].c_id %></h1>
     <table border="1">
         <thead>
             <tr>
@@ -25,6 +25,11 @@
             <% } %>
         </tbody>
     </table>
+
+    <form action="/coordinators/add_event" method="post">
+        <input type="hidden" name="c_id" value="<%= events[0].c_id %>">
+        <button type="submit">ADD EVENT</button>
+    </form>
 
 </body>
 </html>

@@ -19,6 +19,7 @@ const {
 
 const {
   getAllEvents,
+  addEvent,
 } = require("./query/coordinator");
 
 const app = express();
@@ -172,6 +173,26 @@ app.get("/coordinators/:clubId/dashboard", requireAuthCC, async (req, res) => {
     res.redirect("/sgc");
   }
 });
+
+app.get("/coordinators/add_event", (req, res) => {
+  res.render('coordinators/add_event');
+})
+
+app.post("/coordinators/add_event", (req, res) => {
+  const c_id = req.body.c_id
+  res.render("coordinators/add_event", {cc_id: c_id});
+})
+
+app.post("/coordinators/add_event/submit", async (req, res) => {
+  const EventData = req.body;
+  const addedEvent = await addEvent(EventData);
+  if(addedEvent){
+    res.redirect(`/coordinators/${Event.c_id}/dashboard`);
+  }
+  else{
+    res.redirect("/coordinators/add_event");
+  }
+})
 
 app.listen(3000, () => {
   console.log("Server is running on: http://localhost:3000");

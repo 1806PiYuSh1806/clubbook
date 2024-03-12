@@ -17,6 +17,21 @@ async function getAllEvents(c_id){
     })
 }
 
+async function addEvent(eventData) {
+    return new Promise((resolve, reject) => {
+        const {c_id, e_name, e_startDate, e_endDate} = eventData;
+        const query = `INSERT INTO events (c_id ,e_name, e_startDate, e_endDate) VALUES (?, ?, ?, ?)`;
+        pool.query(query, [c_id, e_name, e_startDate, e_endDate], (err, res) => {
+            if(err){
+                console.log("Error adding event");
+                return reject(err);
+            }
+            return resolve(res);
+        })
+    })
+}
+
 module.exports = {
     getAllEvents,
+    addEvent,
 }

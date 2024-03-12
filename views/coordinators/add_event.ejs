@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Event</title>
+</head>
+<body>
+    <h1>Hello</h1>
+    <h1>Club ID: <%= cc_id %></h1>
+
+    <form action="/coordinators/add_event/submit" method="post">
+        <input type="hidden" name="c_id" value="<%= cc_id %>">
+
+        <label for="e_name">Event Name:</label>
+        <input type="text" id="e_name" name="e_name" required>
+
+        <label for="e_startDate">Start Date:</label>
+        <input type="date" id="e_startDate" name="e_startDate" required>
+
+        <label for="e_endDate">End Date:</label>
+        <input type="date" id="e_endDate" name="e_endDate" required>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
