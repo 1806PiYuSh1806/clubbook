@@ -33,21 +33,21 @@ function createDbAndTable() {
         e_name VARCHAR(225) NOT NULL,
         e_startDate DATE NOT NULL,
         e_endDate DATE NOT NULL,
-        FOREIGN KEY (c_id) REFERENCES clubs(c_id)
+        FOREIGN KEY (c_id) REFERENCES clubs(c_id) ON DELETE CASCADE ON UPDATE CASCADE
     )`;
     const query5 =  `CREATE TABLE IF NOT EXISTS posts (
         p_id INT AUTO_INCREMENT PRIMARY KEY,
         e_id INT,
         p_image BLOB NOT NULL,
         p_description VARCHAR(500) NOT NULL,
-        FOREIGN KEY (e_id) REFERENCES events(e_id)
+        FOREIGN KEY (e_id) REFERENCES events(e_id) ON DELETE CASCADE ON UPDATE CASCADE
     )`;
     const query6 =  `CREATE TABLE IF NOT EXISTS clubcoordinators (
         cc_id INT AUTO_INCREMENT PRIMARY KEY,
         c_id INT,
         cc_image BLOB NOT NULL,
         cc_name VARCHAR(250) NOT NULL,
-        FOREIGN KEY (c_id) REFERENCES clubs(c_id)
+        FOREIGN KEY (c_id) REFERENCES clubs(c_id) ON DELETE CASCADE ON UPDATE CASCADE
     )`;
     const query7 =  `CREATE TABLE IF NOT EXISTS users (
         u_id INT AUTO_INCREMENT PRIMARY KEY,

@@ -6,6 +6,25 @@
     <title>Coordinators</title>
 </head>
 <body>
-    <h1>Hello</h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Event Name</th>
+                <th>Starting Date</th>
+                <th>Ending Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (let i = 0; i < events.length; i++) { %>
+                <tr>
+                    <td><%= events[i].e_name %></td>
+                    <td><%= new Date(events[i].e_startDate).toLocaleDateString() %></td>
+                    <td><%= new Date(events[i].e_endDate).toLocaleDateString() %></td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+
 </body>
 </html>
