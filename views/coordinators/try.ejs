@@ -4,27 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Add Event</title>
-    <link rel="stylesheet" href="/user/styles/addEvent.css" />
-    <style>
-      /* Add styles for Add Event button */
-      .form .inputBx button[type="submit"] {
-        background: #fff;
-        color: #111;
-        max-width: 100px;
-        padding: 8px 10px;
-        border: none;
-        border-radius: 15px;
-        box-shadow: none;
-        letter-spacing: 1px;
-        cursor: pointer;
-        transition: background-color 0.5s, color 0.5s;
-      }
-
-      .form .inputBx button[type="submit"]:hover {
-        background-color: #111;
-        color: #fff;
-      }
-    </style>
+    <link rel="stylesheet" href="/user/styles/AddEvent.css" />
   </head>
   <body>
     <section>
@@ -40,30 +20,19 @@
           <div class="form">
             <h2>Add Events</h2>
             <form action="/coordinators/add_event/submit" method="post">
-              <input type="hidden" name="c_id" value="<%= cc_id %>" />
               <div class="inputBx">
                 <input type="text" name="e_name" required="required" />
                 <span>Event Name:</span>
                 <i class="fas fa-user-circle"></i>
               </div>
               <div class="inputBx">
-                <input
-                  type="date"
-                  name="e_startDate"
-                  required="required"
-                  placeholder="Start Date:"
-                />
-                <!-- <span>Start Date:</span> -->
+                <input type="text" name="e_startDate" required="required" />
+                <span>Start Date:</span>
                 <i class="fas fa-user-circle"></i>
               </div>
               <div class="inputBx">
-                <input
-                  type="date"
-                  name="e_endDate"
-                  required="required"
-                  placeholder=""
-                />
-                <!-- <span>End Date:</span> -->
+                <input type="text" name="e_endDate" required="required" />
+                <span>End Date:</span>
                 <i class="fas fa-user-circle"></i>
               </div>
               <div class="inputBx">
