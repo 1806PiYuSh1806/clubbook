@@ -18,6 +18,19 @@ async function getClubDetails(clubData) {
     });
 }
 
+async function getClubName(c_id) {
+  return new Promise((resolve, reject) => {
+    const query = 'SELECT c_name FROM clubs WHERE c_id=?';
+    pool.query(query, [c_id], (err, result) => {
+      if(err){
+        console.log("Error fetching Club name.");
+        return reject(err);
+      }
+      resolve(result[0]);
+    })
+  })
+}
+
 async function getAllClubNames() {
   return new Promise ((resolve,reject)=>{
     const query = "SELECT * FROM clubs";
@@ -64,6 +77,7 @@ async function addNewClub(club_data){
 
 module.exports = {
     getClubDetails,
+    getClubName,
     getAllClubNames,
     deleteClub,
     addNewClub,

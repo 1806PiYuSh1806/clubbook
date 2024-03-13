@@ -35,9 +35,11 @@ section {
     background-position: 0% 50%;
   }
 }
+
 .box {
   position: relative;
 }
+
 .box .square {
   position: absolute;
   background: rgba(255, 255, 255, 0.1);

@@ -12,6 +12,7 @@ const {
 
 const {
   getClubDetails,
+  getClubName,
   getAllClubNames,
   deleteClub,
   addNewClub,
@@ -166,9 +167,11 @@ app.post("/coordinators", async (req, res) => {
 
 app.get("/coordinators/:clubId/dashboard", requireAuthCC, async (req, res) => {
   const c_id = req.params.clubId
+  const clubName = await getClubName(c_id);
+  const c_name = clubName.c_name;
   const events = await getAllEvents(c_id);
   if (req.session.CCId == c_id) {
-    res.render("coordinators/dashboard", {events});
+    res.render("coordinators/dashboard", {events, c_name});
   } else {
     res.redirect("/sgc");
   }
@@ -187,7 +190,7 @@ app.post("/coordinators/add_event/submit", async (req, res) => {
   const EventData = req.body;
   const addedEvent = await addEvent(EventData);
   if(addedEvent){
-    res.redirect(`/coordinators/${Event.c_id}/dashboard`);
+    res.redirect(`/coordinators/${EventData.c_id}/dashboard`);
   }
   else{
     res.redirect("/coordinators/add_event");

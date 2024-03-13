@@ -4,24 +4,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Club Management</title>
+    <style>
+        body {
+            background-color: #0c9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h2 {
+            border-bottom: 1px solid #0c9;
+            color: #fff;
+            text-align: center;
+            padding-bottom: 10px;
+            margin-top: 20px;
+        }
+
+        table {
+            background-color: #215858;
+            border-collapse: collapse;
+            width: 25%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #0c9;
+            padding: 8px;
+            color: #fff;
+        }
+
+        th {
+            background-color: #0c9;
+        }
+
+        form {
+            display: inline;
+        }
+
+        button {
+            background-color: #0c9;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #215858;
+        }
+
+        button.add-club {
+            display: block;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <h2>Club List</h2>
 
-    <ul>
-        <% clubs.forEach((club) => { %>
-            <li>
-                <span><%= club.c_name %></span>
-                
-                <!-- Delete Form -->
-                <form action="/sgc/dashboard/delete" method="post" style="display: inline;">
-                    <input type="hidden" name="c_id" value="<%= club.c_id %>">
-                    <button type="submit">DELETE</button>
-                </form>
-            </li>
-        <% }); %>
-    </ul>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Club Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% clubs.forEach((club) => { %>
+                <tr>
+                    <td><%= club.c_name %></td>
+                    <td>
+                        <!-- Delete Form -->
+                        <form action="/sgc/dashboard/delete" method="post">
+                            <input type="hidden" name="c_id" value="<%= club.c_id %>">
+                            <button type="submit">DELETE</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
 
-    <button onclick="location.href='/sgc/new_club'">Add New Club</button>
+    <button class="add-club" onclick="location.href='/sgc/new_club'">Add New Club</button>
 </body>
 </html>
