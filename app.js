@@ -171,7 +171,7 @@ app.get("/coordinators/:clubId/dashboard", requireAuthCC, async (req, res) => {
   const c_name = clubName.c_name;
   const events = await getAllEvents(c_id);
   if (req.session.CCId == c_id) {
-    res.render("coordinators/dashboard", {events, c_name});
+    res.render("coordinators/dashboard", {events, c_name, c_id});
   } else {
     res.redirect("/sgc");
   }

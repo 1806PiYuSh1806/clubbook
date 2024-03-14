@@ -58,31 +58,39 @@
     </style>
 </head>
 <body>
-    <h1>Club Name: <%= c_name %></h1>
-    <h2>Club ID: <%= events[0].c_id %></h2>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Event Name</th>
-                <th>Starting Date</th>
-                <th>Ending Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% for (let i = 0; i < events.length; i++) { %>
+    <% if (events && events.length > 0) { %>
+        <h1>Club Name: <%= c_name %></h1>
+        <h2>Club ID: <%= c_id %></h2>
+        <table border="1">
+            <thead>
                 <tr>
-                    <td><%= events[i].e_name %></td>
-                    <td><%= new Date(events[i].e_startDate).toLocaleDateString() %></td>
-                    <td><%= new Date(events[i].e_endDate).toLocaleDateString() %></td>
+                    <th>Event Name</th>
+                    <th>Starting Date</th>
+                    <th>Ending Date</th>
                 </tr>
-            <% } %>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <% for (let i = 0; i < events.length; i++) { %>
+                    <tr>
+                        <td><%= events[i].e_name %></td>
+                        <td><%= new Date(events[i].e_startDate).toLocaleDateString() %></td>
+                        <td><%= new Date(events[i].e_endDate).toLocaleDateString() %></td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
 
-    <form action="/coordinators/add_event" method="post">
-        <input type="hidden" name="c_id" value="<%= events[0].c_id %>">
-        <button type="submit">ADD EVENT</button>
-    </form>
+        <form action="/coordinators/add_event" method="post">
+            <input type="hidden" name="c_id" value="<%= events[0].c_id %>">
+            <button type="submit">ADD EVENT</button>
+        </form>
+    <% } else { %>
+        <p>NO EVENTS YET</p>
 
+        <form action="/coordinators/add_event" method="post">
+            <input type="hidden" name="c_id" value="<%= c_id %>">
+            <button type="submit">ADD EVENT</button>
+        </form>
+    <% } %>
 </body>
 </html>
