@@ -64,30 +64,34 @@
     </style>
 </head>
 <body>
-    <h2>Club List</h2>
+    <% if (clubs && clubs.length > 0) { %>
+        <h2>Club List</h2>
 
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Club Name</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% clubs.forEach((club) => { %>
+        <table border="1">
+            <thead>
                 <tr>
-                    <td><%= club.c_name %></td>
-                    <td>
-                        <!-- Delete Form -->
-                        <form action="/sgc/dashboard/delete" method="post">
-                            <input type="hidden" name="c_id" value="<%= club.c_id %>">
-                            <button type="submit">DELETE</button>
-                        </form>
-                    </td>
+                    <th>Club Name</th>
+                    <th>Actions</th>
                 </tr>
-            <% }); %>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <% clubs.forEach((club) => { %>
+                    <tr>
+                        <td><%= club.c_name %></td>
+                        <td>
+                            <!-- Delete Form -->
+                            <form action="/sgc/dashboard/delete" method="post">
+                                <input type="hidden" name="c_id" value="<%= club.c_id %>">
+                                <button type="submit">DELETE</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <h2>No Clubs yet</h2>
+    <% } %>
 
     <button class="add-club" onclick="location.href='/sgc/new_club'">Add New Club</button>
 </body>
