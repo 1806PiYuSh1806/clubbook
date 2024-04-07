@@ -6,7 +6,7 @@
     <title>Coordinators</title>
     <style>
         body {
-            background-color: #0c9;
+            background-color: rgba(12, 201, 153, 0.5); /* Light green with texture */
             margin: 0;
             padding: 0;
             display: flex;
@@ -16,27 +16,46 @@
             flex-direction: column; /* Align content vertically */
         }
 
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
         table {
-            background-color: #215858;
+            background-color: #f0f0f0; /* Light grey */
             border-collapse: collapse;
             width: 80%;
             margin-top: 20px;
         }
 
         th, td {
-            border: 1px solid #0c9;
+            border: 1px solid #ccc; /* Light grey border */
             padding: 8px;
-            color: white;
+            color: #333; /* Dark grey text color */
         }
 
         th {
-            background-color: #0c9;
+            background-color: #0c9; /* Dark blue */
+            color: white; /* White text */
         }
 
-        h1, h2 {
-            border-bottom: 2px solid #0c9;
+        h1 {
+            /* border-bottom: 2px solid #0c9; Dark blue underline */
             padding-bottom: 10px;
             text-align: center; /* Center align the text */
+            color: #1a1a1a; /* Dark grey text color */
+            font-size: 28px; /* Larger font size */
+            font-weight: bold; /* Bold font weight */
+            margin-bottom: 20px; /* Increased bottom margin */
+        }
+
+        h2 {
+            border-bottom: 2px solid #0c9; /* Dark blue underline */
+            padding-bottom: 10px;
+            text-align: center; /* Center align the text */
+            color: #0c9; /* Dark blue text color */
         }
 
         form {
@@ -60,7 +79,6 @@
 <body>
     <% if (events && events.length > 0) { %>
         <h1>Club Name: <%= c_name %></h1>
-        <h2>Club ID: <%= c_id %></h2>
         <table border="1">
             <thead>
                 <tr>

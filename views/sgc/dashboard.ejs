@@ -6,49 +6,71 @@
     <title>Club Management</title>
     <style>
         body {
-            background-color: #0c9;
+            background-color: rgba(12, 201, 153, 0.5); /* Light green with texture */
             margin: 0;
             padding: 0;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
             min-height: 100vh;
+            flex-direction: column; /* Align content vertically */
         }
 
-        h2 {
-            border-bottom: 1px solid #0c9;
-            color: #fff;
-            text-align: center;
-            padding-bottom: 10px;
-            margin-top: 20px;
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         table {
-            background-color: #215858;
+            background-color: #f0f0f0; /* Light grey */
             border-collapse: collapse;
-            width: 25%;
+            width: 80%;
             margin-top: 20px;
         }
 
         th, td {
-            border: 1px solid #0c9;
+            border: 1px solid #ccc; /* Light grey border */
             padding: 8px;
-            color: #fff;
+            color: #333; /* Dark grey text color */
+            text-align: center; /* Center align content horizontally */
+            vertical-align: middle; /* Center align content vertically */
+            width: 1%; /* Adjust width of each row */
         }
 
         th {
-            background-color: #0c9;
+            background-color: #0c9; /* Dark blue */
+            color: white; /* White text */
+        }
+
+        h1 {
+            /* border-bottom: 2px solid #0c9; Dark blue underline */
+            padding-bottom: 10px;
+            text-align: center; /* Center align the text */
+            color: #1a1a1a; /* Dark grey text color */
+            font-size: 28px; /* Larger font size */
+            font-weight: bold; /* Bold font weight */
+            margin-bottom: 20px; /* Increased bottom margin */
+        }
+
+        h2 {
+            border-bottom: 2px solid #0c9; /* Dark blue underline */
+            padding-bottom: 10px;
+            text-align: center; /* Center align the text */
+            color: #0c9; /* Dark blue text color */
         }
 
         form {
-            display: inline;
+            margin-top: 20px;
+            text-align: center; /* Center align the form */
         }
 
         button {
             background-color: #0c9;
-            color: #fff;
+            color: white;
             border: none;
-            padding: 5px 10px;
+            padding: 10px 20px;
             cursor: pointer;
         }
 
@@ -56,16 +78,18 @@
             background-color: #215858;
         }
 
-        button.add-club {
-            display: block;
-            margin-top: 20px;
-            cursor: pointer;
+        .add-club {
+            margin-top: 20px; /* Add space between table and button */
+        }
+
+        .delete_button {
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
     <% if (clubs && clubs.length > 0) { %>
-        <h2>Club List</h2>
+        <h1>Club List</h1>
 
         <table border="1">
             <thead>
@@ -82,7 +106,7 @@
                             <!-- Delete Form -->
                             <form action="/sgc/dashboard/delete" method="post">
                                 <input type="hidden" name="c_id" value="<%= club.c_id %>">
-                                <button type="submit">DELETE</button>
+                                <button class="delete_button" type="submit">DELETE</button>
                             </form>
                         </td>
                     </tr>
